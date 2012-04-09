@@ -1,7 +1,8 @@
 
 var Todos = function () {
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
-
+  
+  // List all items
   this.index = function (req, resp, params) {
     var self = this;
 
@@ -9,11 +10,13 @@ var Todos = function () {
       self.respond({params: params, todos: todos});
     });
   };
-
+  
+  // Add a new item
   this.add = function (req, resp, params) {
     this.respond({params: params});
   };
-
+  
+  // Persist new todo
   this.create = function (req, resp, params) {
     var self = this,
         todo = geddy.model.Todo.create({
@@ -32,11 +35,8 @@ var Todos = function () {
         }
     });
   };
-
-  this.show = function (req, resp, params) {
-    this.respond({params: params});
-  };
-
+   
+  // Edit an existing todo
   this.edit = function (req, resp, params) {
     var self = this;
 
@@ -44,7 +44,8 @@ var Todos = function () {
       self.respond({params: params, todo: todo});
     });
   };
-
+  
+  // Modify an existing todo
   this.update = function (req, resp, params) {
     var self = this;
     geddy.model.adapter.Todo.load(params.id, function (err, todo) {
@@ -62,7 +63,8 @@ var Todos = function () {
       });
     });
   };
-
+  
+  // Remove a todo
   this.remove = function (req, resp, params) {
     var self = this;
     geddy.model.adapter.Todo.remove(params.id, function(err){
